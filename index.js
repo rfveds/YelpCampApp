@@ -8,6 +8,7 @@ const ExpressError = require("./helpers/ExpressError");
 
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
+const exp = require('constants');
 
 main().catch(err => console.log(err));
 
@@ -23,6 +24,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/campgrounds', campgrounds);
 app.use('/campgrounds/:id/reviews', reviews);
