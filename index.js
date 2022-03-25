@@ -10,8 +10,9 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
 
-const campgrounds = require('./routes/campgrounds');
-const reviews = require('./routes/reviews');
+const userRoutes = require('./routes/users');
+const campgroundRoutes = require('./routes/campgrounds');
+const reviewRoutes = require('./routes/reviews');
 
 main().catch(err => console.log(err));
 
@@ -60,11 +61,14 @@ app.use((req, res, next) => {
     next();
 })
 
+//user routes
+app.use('/', userRoutes);
+
 //campgrounds routes
-app.use('/campgrounds', campgrounds);
+app.use('/campgrounds', campgroundRoutes);
 
 //reviews routes
-app.use('/campgrounds/:id/reviews', reviews);
+app.use('/campgrounds/:id/reviews', reviewRoutes);
 
 //homepage
 app.get('/', (req, res) => {
