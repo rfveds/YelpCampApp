@@ -6,6 +6,9 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const ExpressError = require("./helpers/ExpressError");
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
 
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
@@ -37,9 +40,18 @@ const sessionConfig = {
         maxAge: 1000*60*60*24*7,
         sameSite: 'strict',
     }
-};
+}
 app.use(session(sessionConfig));
 app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+//storing user in session 
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 //flash messages
 app.use((req, res, next) => {
