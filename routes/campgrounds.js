@@ -2,6 +2,7 @@ const express = require('express');
 const catchAsync = require('../helpers/catchAsync');
 const { campgroundSchema } = require('../schemas.js');
 const router = express.Router();
+const { isLoggedIn } = require('../middleware');
 
 const Campground = require('../models/campground');
 const ExpressError = require("../helpers/ExpressError");
@@ -23,7 +24,7 @@ router.get('/', catchAsync(async (req, res) => {
 }));
 
 //create new campground
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('campgrounds/new');
 });
 
