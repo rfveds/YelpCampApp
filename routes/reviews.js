@@ -3,8 +3,8 @@ const router = express.Router({ mergeParams: true });
 const { validateReview, isLoggedIn } = require('../middleware');
 const Campground = require('../models/campground');
 const Review = require('../models/review')
-
-const catchAsync = require('../helpers/catchAsync');
+const ExpressError = require('../utils/ExpressError');
+const catchAsync = require('../utils/catchAsync');
 
 //add new review
 router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
@@ -14,9 +14,9 @@ router.post('/', isLoggedIn, validateReview, catchAsync(async (req, res) => {
     campground.reviews.push(review);
     await review.save();
     await campground.save();
-    req.flash('success', 'Created new review!')
+    req.flash('success', 'Created new review!');
     res.redirect(`/campgrounds/${campground._id}`);
-}));
+}))
 
 //delete review
 router.delete('/:reviewId', catchAsync(async (req, res) => {
