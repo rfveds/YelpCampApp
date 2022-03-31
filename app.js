@@ -16,15 +16,16 @@ const User = require('./models/user');
 const userRoutes = require('./routes/users');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
-
+const cloudDatabase = process.env.d;
+const localDatabase = 'mongodb://localhost:27017/yelp-camp'
 const mongoSanitize = require('express-mongo-sanitize');
-
+const MongoDBStore = require('connect-mongo');
 
 
 main().catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://localhost:27017/yelp-camp');
+    await mongoose.connect(localDatabase);
 }
 
 const app = express();
@@ -40,16 +41,32 @@ app.use(mongoSanitize({
     replaceWith: '_'
 }))
 
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+
+const store = MongoDBStore.create({
+    mongoUrl: localDatabase,
+    crypto: {
+      secret: 'squirrel'
+    },
+    touchAfter: 24 * 3600
+  })
+
+
+store.on("error", function (e) {
+    console.log("SESSION STORE ERROR", e)
+})
+
 const sessionConfig = {
-    secret: 'verysecressecret',
-    name: 'YelpCampApp',
+    store,
+    name: 'session',
+    secret,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         httpOnly: true,
+        // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
 app.use(session(sessionConfig));
