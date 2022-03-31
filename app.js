@@ -18,7 +18,6 @@ const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 
 const mongoSanitize = require('express-mongo-sanitize');
-// const helmet = require("helmet");
 
 
 
@@ -55,7 +54,6 @@ const sessionConfig = {
 }
 app.use(session(sessionConfig));
 app.use(flash());
-// app.use(helmet());
 
 
 app.use(passport.initialize());
