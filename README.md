@@ -3,6 +3,7 @@
 <!-- > Live demo [_here_](https://www.example.com). If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
+
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
@@ -17,11 +18,13 @@
 
 
 ## General Information
+
 - Project was part of The Web Developer Bootcamp 2022
 - The main purpose of the project was to learn both front-end and back-end development with JavaScript
 
 
 ## Technologies Used
+
 - HTML5
 - CSS3
 - Bootstrap 5
@@ -31,6 +34,7 @@
 
 
 ## Features
+
 List the ready features here:
 - Campground CRUD
 - Reviews CRUD
@@ -47,18 +51,21 @@ List the ready features here:
 
 
 ## Setup
+
 Download code and run
 ```console
 npm install
 ```
 
 ## Usage
+
 To start application run 
 ```console
 node app.js
 ```
 
 ## Project Status
+
 Project is: _in progress_ 
 
 
@@ -73,11 +80,12 @@ To do:
  
 
 ## Acknowledgements
-Give credit here.
+
 - This project was based on [The Web Developer Bootcamp 2022](https://www.udemy.com/course/the-web-developer-bootcamp/).
 
 
 ## Contact
+
 Created by Karol Kijowski - feel free to contact me!
 
 
